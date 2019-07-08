@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"> 
+  <link rel="stylesheet" type="text/css" href="appcss/stylesjs.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <title>Simple JS App</title>
+</head>
+
+<body>
+  <header class=header>
+      <nav class= navreg>
+        <ul class=regform>
+          <li class="li-style">Pokedex Registration</li>
+          <form class="form-inline" action='/' id='form'>
+            <div class=input-wrapper>
+              <input type='text' id='email' placeholder='Email Address'>
+            </div>
+            <div class=input-wrapper>
+              <input type='password' id='password' placeholder='Password'>
+            </div>
+            <div class="input-submit">
+            <input type='submit' value='Register'>
+            </div>
+          </form>
+        </ul>
+      </nav>
+</header>
+    <div class="modal-buttons">
+    <button id='show-modal'>
+      Show modal
+    </button>
+    
+    <button id='show-dialog'>
+      Show dialog
+    </button>
+    </div>
+    <div id='modal-container'></div>
+    
+    <div class="pokecontainer">
+    <ul id="buttons" class="pokelist"></ul>
+    </div>
+    
+    <footer class="footer">
+        <br>
+        <br>
+
+        <a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon">See Pokémon on Wikipedia now!</a>
+
+</footer>
+<script src="appjs/scripts.js"></script>
+  <!--<script src="appjs/reg.validation.js"></script>-->
+</body>
+</html>
