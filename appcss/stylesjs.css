@@ -9,41 +9,34 @@ body {
     background-size: cover;
 }
 
-.navreg {
+.navbar {
     width: 100%;
-    background: #000;
-    color: white;
-    height: 145px;
+    color: black;
+    height: 120px;
     position: fixed;
     top: 0px;
+    align-content: center;
 }
 
-.li-style {
-    height: 30px;
-    list-style-type: none;
-    font-size: 30px;
-}
-
-.form-inline {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
+.pokeh1 {   
+    width: 500px;   
+    text-align: center;
+   
 }
 
 .form-inline input {
-    vertical-align: middle;
-    margin: 5px 10px 5px 0;
+    margin: 5px 10px 0 0;
     padding: 10px 40px;
     background-color: #fff;
     border: 1px solid #ddd;
-}
+   }
 
 footer {
     text-align: center;
     /* add some thing because the git*/
 }
 
-.pokebutton {
+.btn-primary {
     background-color: #1F005C;
     border: none;
     color: white;
@@ -60,11 +53,11 @@ footer {
     text-transform: uppercase;
 }
 
-.pokebutton:hover {
-    color: white !important;
+.btn-primary:hover {
+    color: black!important;
     font-weight: 700 !important;
     letter-spacing: 3px;
-    background: none;
+    background: white;
     box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
     transition: all 0.3s ease 0s;
 }
@@ -76,15 +69,18 @@ footer {
     position: relative;
     padding: 15px;
     width: 100%;
+    height: auto;
     max-width: 700px;
     text-align: left;
-    background: rgb(243, 243, 243);
+    background: #1F005C;
     opacity: 1;
 }
 
-.close:hover {
-    background-color: unset !important;
-    color: unset !important;
+.btn-sm:hover {
+    background-color: white;
+    color: black;
+    box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+    transition: all 0.3s ease 0s;
 }
 
 .modal p {
@@ -92,10 +88,8 @@ footer {
 }
 
 .pokecontainer {
-    margin-top: 150px;
+    margin-top: 200px;
 }
-
-
 
 .pokemon-types span {
     background: #1E88E5;
@@ -154,7 +148,7 @@ footer {
     background: #1E88E5;
     color: #fff;
     text-align: center;
-    
+    border-radius: 10px;
     font-variant: small-caps;
     font-size: 16px;
     font-weight: 600;
@@ -162,7 +156,7 @@ footer {
     width: 240px;
    }
 
-.close {
+.btn-sm {
     color: #FFF;
     background-color: #5995DA;   
     font-weight: bold;
@@ -172,6 +166,15 @@ footer {
     border-radius: 5px;
     width: 80px;
     margin: 20px auto;
+    font-size: 20px;
     }      
      
-    
+.list-group-item {
+    background: none;
+    opacity: 1;
+    }
+
+.nav-link {
+    font-weight: bold;
+}
+
