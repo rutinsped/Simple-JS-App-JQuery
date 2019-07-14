@@ -4,22 +4,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"> 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
   <link rel="stylesheet" type="text/css" href="appcss/stylesjs.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
   <title>Simple JS App</title>
 </head>
 
 <body>
-  <header class=header>
-      <nav class= navreg>
-        <ul class=regform>
-          <li class="li-style">Pokedex Registration</li>
+ <header class="header">
+      <nav class= "navbar navbar-expand-lg navbar-light bg-light">
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Main</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://en.wikipedia.org/wiki/Pok%C3%A9mon">Info</a>
+              </li>
+              <li class="pokeh1">
+                <h1 class="font-weight-bolder">POKEDEX</h1>
+              </li>
+          </ul>
+          <ul class="regform">
           <form class="form-inline" action='/' id='form'>
-            <div class=input-wrapper>
+            <div class="input-wrapper">
               <input type='text' id='email' placeholder='Email Address'>
             </div>
-            <div class=input-wrapper>
+            <div class="input-wrapper">
               <input type='password' id='password' placeholder='Password'>
             </div>
             <div class="input-submit">
@@ -27,30 +38,27 @@
             </div>
           </form>
         </ul>
-      </nav>
+      </nav>    
 </header>
-    <div class="modal-buttons">
-    <button id='show-modal'>
-      Show modal
-    </button>
-    
-    <button id='show-dialog'>
-      Show dialog
-    </button>
-    </div>
+<main class="main">
     <div id='modal-container'></div>
-    
-    <div class="pokecontainer">
-    <ul id="buttons" class="pokelist"></ul>
+
+    <div class="pokecontainer">      
+    <ul id='buttons' class="list-group"></ul>
     </div>
-    
-    <footer class="footer">
+</main>
+   
+  <footer class="footer">
         <br>
         <br>
-
         <a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon">See Pokémon on Wikipedia now!</a>
+        <br>
+        <br>
+  </footer>
 
-</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="appjs/scripts.js"></script>
   <!--<script src="appjs/reg.validation.js"></script>-->
 </body>
