@@ -86,15 +86,16 @@
   
   function addListItem(pokemon) {
     var $listItemElement = $('<li>');
+    $listItemElement.addClass('list-group-item')
     var $btn = $('<button>'+pokemon.name+'</button>');
-    $btn.addClass('pokebutton');
+    $btn.addClass('btn btn-lg btn-primary');
       
     $listItemElement.append($btn);
     $btn.click(function() {
       showDetails(pokemon)
     });
 
-    $('.pokelist').append($listItemElement);
+    $('.list-group').append($listItemElement);
   }
 
   /* The showDetails recieves the pokemon
@@ -113,9 +114,9 @@ function showDetails(pokemon) {
       var $image = $('<img>');
       var $h1 = $('<h1>');
       var $height = $('<p>'+pokemon.height+'</p>');
-            
+                  
       $modal.append($closeBtn);      
-      $closeBtn.addClass('close');
+      $closeBtn.addClass('btn-sm');
       $closeBtn.html('Close');
 
       $image.attr('src',pokemon.imageUrl);
