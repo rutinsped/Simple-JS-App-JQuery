@@ -1,188 +1,122 @@
-(function (){
-  
-  pokemonRepository = (function (){
-    var repository = []
-  
+/* global $ */
+(function(){
+  var pokemonRepository = (function(){
+    var repository =[];
     var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
   
-    function add(pokemon) {
-      repository.push(pokemon);
-    }
-  
-    function getAll() {
+    function getAll(){
       return repository;
     }
-	
-	// When called loads the list of pokemons from the API
-    // to the repository variable.
-	
-    function loadList() {
-      console.log('%c LOAD-LIST CALLED', 'color: blue; font-size: 20px; font-weight:bold;');
-      return fetch(apiUrl).then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        json.results.forEach(function (item) {
+  
+    function add(item){
+      repository.push(item);
+    }
+  
+    function loadList(){
+      return $.ajax(apiUrl, {dataType: 'json'}).then(function(item){
+  
+        $.each(item.results, function(index, item){
+          //Uncomment the line below to see index in the callback function in $.each()
+          //console.log('response object ', index);
           var pokemon = {
             name: item.name,
             detailsUrl: item.url
-          };
-          add(pokemon);
-        });
-      }).catch(function(e) {
+          }
+          add(pokemon)
+        })
+  
+        }).catch(function(e){
+        /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
         console.error(e);
-      })
-    }
-	
-	
-    function loadDetails(pokemon) {
-      console.log('%c LOAD-DETAILS CALLED', 'color: blue; font-size: 20px; font-weight:bold;');
-      console.log(pokemon);
-      var url = pokemon.detailsUrl;
-      return $.ajax(url, {
-		method: 'GET',
-		dataType: 'json'
-		}).then(function (response) {
-      console.log('response',response)
-        pokemon.imageUrl = response.sprites.front_default;
-        pokemon.height = response.height;
-        pokemon.types = Object.keys(response.types);
-      })
-      .catch(function (e) {
-        console.log(e);
       });
     }
-	
-	 // to access any method, function or variable
-    // in the function it has to be returned.
+  
+  
+    function loadDetails(item){
+      var url = item.detailsUrl;
+      return $.ajax(url).then(function(details){
+        //Uncomment the line below to log index
+        //console.log('Item details', details);
+        // Now we add the details to the item
+        item.imageUrl = details.sprites.front_default;
+        item.height = details.height;
+        item.types = details.types.map(function(pokemon) {
+    return pokemon.type.name;
+  });
+  
+        //Uncomment the line below to see types
+        //console.log(item.types);
+      }).catch(function(e){
+        console.error(e);
+      });
+    }
+  
     return {
       add: add,
       getAll: getAll,
       loadList: loadList,
-      loadDetails: loadDetails,
-    }
-
+      loadDetails: loadDetails
+    };
   })();
-  // pokeRepository Function.
-
-  // We first call the loadlist fuction
-  // and call the addListItem function 
-  // passing each pokemon to it.
   
-  pokemonRepository.loadList().then(function(){
-    var pokemons = pokemonRepository.getAll()
-    console.log(pokemons)
-    pokemons.forEach(addListItem);
-  });
-
-  var $modalContainer = $('#modal-container');
-
-  // addListItem takes the pokemons and creates
-  // a list element and a button for each.
-  // Then creates a click event for each button
-  // when then calls the showDetails function
-  // passing it the pokemon.
-
+  var $pokemonList = $('.pokemon-list')
   
-  
-  function addListItem(pokemon) {
-    var $listItemElement = $('<li>');
-    $listItemElement.addClass('list-group-item')
-    var $btn = $('<button>'+pokemon.name+'</button>');
-    $btn.addClass('btn btn-lg btn-primary');
-      
-    $listItemElement.append($btn);
-    $btn.click(function() {
+  function addListItem(pokemon){
+    var listItem = $('<button type="button" class="pokemon-list_item list-group-item list-group-item-action" data-toggle="modal" data-target="#pokemon-modal"></button>');
+    listItem.text(pokemon.name);
+    $pokemonList.append(listItem);
+  //Uncomment the line below if you want to see the list of pokemon.
+  //console.log(pokemon);
+    listItem.click(function() {
       showDetails(pokemon)
     });
-
-    $('.list-group').append($listItemElement);
   }
-
-  /* The showDetails recieves the pokemon
-      and then passes it to the loadDetails
-      function
-  */
-
-function showDetails(pokemon) {
-  pokemonRepository.loadDetails(pokemon)
-    .then(function() {
-
-         
-      var $modal = $('<div>');
-      $modal.addClass('modal');
-      var $closeBtn = $('<button>'); 
-      var $image = $('<img>');
-      var $h1 = $('<h1>');
-      var $height = $('<p>'+pokemon.height+'</p>');
-                  
-      $modal.append($closeBtn);      
-      $closeBtn.addClass('btn-sm');
-      $closeBtn.html('Close');
-
-      $image.attr('src',pokemon.imageUrl);
-      $image.addClass('pokemon-img');
-      $modal.append($image);
-
-      $h1.html(pokemon.name);
-      $h1.addClass('h1');
-      $modal.append($h1);
-
-      $height.html('Height - ' + pokemon.height);
-      $modal.append($height); 
-      $height.addClass('height');
-
-      var $exist = $modalContainer.children('.modal');
-        if ($exist) {
-        $exist.remove(); 
-        }
-     
-
-      $modalContainer.append($modal)
-      $modalContainer.addClass('is-visible');
-      $closeBtn.click(hideModal);
-      
+  
+  /*************
+  Display modal about pokemon details
+  **************/
+  
+  function showDetails(pokemon){
+    pokemonRepository.loadDetails(pokemon).then(function() {
+      var modal = $('.modal-body');
+      /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "name" }]*/
+      var name = $('.modal-title').text(pokemon.name);
+      var height = $('<p class="pokemon-height"></p>').text('Height: ' + pokemon.height);
+      var type = $('<p class="pokemon-type"></p>').text('Type: ' + pokemon.types);
+      var image = $('<img class="pokemon-picture">');
+      image.attr('src', pokemon.imageUrl);
+  
+  
+      if(modal.children().length) {
+        modal.children().remove();
+      }
+  
+      modal.append(image)
+           .append(height)
+           .append(type);
+  
     });
   }
   
-  function hideModal() {
-    $modalContainer.removeClass('is-visible');
-  }; 
+  /****************
+  Search pokemons
+  *****************/
   
-  $(window).keydown(function(event) {
-    if (event.key === 'Escape') {
-      hideModal();  
-    }
+  $(document).ready(function(){
+    $('#pokemon-search').on('keyup', function(){
+      var value = $(this).val().toLowerCase();
+      $('.pokemon-list_item').filter(function(){
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
   });
-
-   
-  $modalContainer.click(function (event) {     
-    if (event.target === this) {
-      hideModal();
-    }
+  
+  pokemonRepository.loadList().then(function(){
+    var pokemons = pokemonRepository.getAll();
+  
+    $.each(pokemons, function(index, pokemon){
+          addListItem(pokemon);
+    });
   });
-
-    
-})();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  })();
+  
