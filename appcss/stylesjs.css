@@ -1,6 +1,6 @@
 body {
   background: url("../images/pokeimg.jpg")no-repeat center center fixed;
-  opacity: 0.6;
+  opacity: 0.4;
   background-attachment: fixed;
   background-size: cover;
 }
@@ -27,7 +27,6 @@ body {
   
   .pokemon-picture {
     width: 100px;
-    display: inline-block;
     float: left;
     }
   
@@ -46,7 +45,8 @@ body {
 
     .list-group-item {
       background-color: rgb(134, 134, 214);
-      color: white;
+      color: black;
+      font-weight: bolder;
     }
 
    
